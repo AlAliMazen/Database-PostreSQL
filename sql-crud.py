@@ -141,10 +141,10 @@ else:
 
 
 # WARNING FOLLOWING SYNTAX ARE ONLY FOR DEMONSTRATING PURPOSES ON HOW TO DELETE ENTIRE RECORDS
-all_programmers=session.query(Programmer)
-for single_prog in all_programmers:
-    session.delete(single_prog)
-    session.commit()
+#all_programmers=session.query(Programmer)
+#for single_prog in all_programmers:
+#    session.delete(single_prog)
+#    session.commit()
 
 
 
