@@ -99,10 +99,54 @@ mazen_al_ali = Programmer(
 #session.add(margaret_hamilton)
 #session.add(bill_gates)
 #session.add(tim_berners_lee)
-session.add(mazen_al_ali)
+#session.add(mazen_al_ali)
+
+# updating single record
+# programmer =session.query(Programmer).filter_by(Id=10).first()
+# programmer.famous_for=" Front & Backend Developer"
 
 # commit the session which holds the instance of the class (table)
-session.commit()
+# session.commit()
+
+
+# updating multiple records
+people = session.query(Programmer)
+for person in people:
+    if person.gender=="F":
+        person.gender="Female"
+    elif person.gender=="M":
+        person.gender="Male"
+    
+    session.commit()
+
+
+
+# deleting a record should be done very carefully and defensive programming is recommended to confirm deletion process
+f_name=input("Enter first name: ")
+l_name=input("Enter last name: ")
+# using first is import to get the first exact match
+person_to_delete=session.query(Programmer).filter_by(first_name=f_name, last_name=l_name).first()
+
+if person_to_delete is not None:
+    print("Programmer found : ", person_to_delete.first_name+" "+person_to_delete.last_name)
+    confirmation=input("Are you sure you want to delete the person? (y/n)")
+    if confirmation.lower()=="y":
+        session.delete(person_to_delete)
+        print("Person has been deleted")
+    else:
+        print("Person wasn't deleted !")
+else:
+    print("No records found")
+
+
+
+# WARNING FOLLOWING SYNTAX ARE ONLY FOR DEMONSTRATING PURPOSES ON HOW TO DELETE ENTIRE RECORDS
+all_programmers=session.query(Programmer)
+for single_prog in all_programmers:
+    session.delete(single_prog)
+    session.commit()
+
+
 
 # check if the instance is added
 programmers=session.query(Programmer)
